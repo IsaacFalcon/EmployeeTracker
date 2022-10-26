@@ -35,8 +35,8 @@ function mainPrompt() {
 };
 
 function viewDep() {
-  console.log('viewing all departments');
-
+   console.log('viewing all departments');
+   
 };
 
 function viewRoles() {
