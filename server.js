@@ -21,8 +21,9 @@ connection.connect(function(err){
     mainPrompt();
 });
 
+console.log('Hello welcome to the employee team manager!');
+
 function mainPrompt() {
-    console.log('Hello welcome to the employee team manager!');
     inquirer.prompt({
       type: 'list',
       name: 'task',
@@ -108,7 +109,34 @@ function addDep() {
 
 function addRole() {
     console.log('adding role');
-
+    connection.query('SELECT * FROM department', (err, res) => {
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'roleName',
+                message: 'What is the name of the role?'
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'What is the salary of the new role?'
+            },
+            {
+                type: 'list',
+                name: 'depName',
+                message: 'What department does the role belong to?',
+                choices: res.map(department => department.name)
+            }
+        ]).then(data => {
+            let depName = res.find(department => department.name === data.depName)
+            connection.query('insert into role set ?', {
+             title: data.roleName,
+             salary: data.salary,
+             department_id: depName.id
+           });
+           mainPrompt();
+        })
+    })
 };
 
 function addEmpl() {
@@ -146,7 +174,23 @@ function addEmpl() {
 };
 
 function updateRole() {
-
+    console.log('updating employee role');
+    connection.query('SELECT DISTINCT * FROM employee, role', (err, res) => {
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'employeeSelect',
+                message: 'Which employees role do you want to update?',
+                choices: res.map(employee => employee.first_name + " " + employee.last_name)
+            },
+            {
+                type: 'list',
+                name: 'newRole',
+                message: 'Which role do you want to assign to the selected employee?',
+                choices: res.map(role => role.title)
+            }
+        ]);
+    });
 };
 
 function deleteEmpl() {
