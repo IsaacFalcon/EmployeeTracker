@@ -41,7 +41,7 @@ Instructions:
 - type node server.js
 - Select an option and anwer prompted questions to perform an action.
 
-Link to Video:
+Link to Video: https://drive.google.com/file/d/1rGgzzyKUpR7if1zTR2BiqOL0cYmy8Np2/view?usp=share_link
 
 ![alt Website Screenshot](./assets/images/preview.JPG)
 
