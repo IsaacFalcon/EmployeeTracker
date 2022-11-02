@@ -175,7 +175,8 @@ function addEmpl() {
 
 function updateRole() {
     console.log('updating employee role');
-    connection.query('SELECT DISTINCT * FROM employee, role', (err, res) => {
+    connection.query('SELECT DISTINCT * FROM employee', (err, res) => {
+        if(err) throw err
         inquirer.prompt([
             {
                 type: 'list',
@@ -183,15 +184,27 @@ function updateRole() {
                 message: 'Which employees role do you want to update?',
                 choices: res.map(employee => employee.first_name + " " + employee.last_name)
             },
-            {
-                type: 'list',
-                name: 'newRole',
-                message: 'Which role do you want to assign to the selected employee?',
-                choices: res.map(role => role.title)
-            }
-        ]);
+           
+        ]).then(data => {
+            const chosenEmployee = res.find(employee => employee.first_name + " " + employee.last_name === data.employeeSelect)
+            connection.query('SELECT * FROM role', (err, res) => {
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'newRole',
+                        message: 'Which role do you want to assign to the selected employee?',
+                        choices: res.map(role => role.title)
+                    }
+                ]).then(data => {
+                    const chosenRole = res.find(role => role.title === data.newRole)
+                    connection.query('update employee set role_id = ? where id = ?', [chosenRole.id, chosenEmployee.id])
+                    mainPrompt();
+                })
+            })
+        })
     });
 };
+
 
 function deleteEmpl() {
     console.log('deleting employee');
