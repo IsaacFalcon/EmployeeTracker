@@ -43,15 +43,12 @@ Instructions:
 
 Link to Video:
 
-![alt Website Screenshot](./)
-![alt Website Screenshot](./)
-![alt Website Screenshot](./)
-![alt Website Screenshot](./)
+![alt Website Screenshot](./assets/images/preview.JPG)
 
 ## Credits
 
 Node.js
-
+MySQL
 
 ## License
 
