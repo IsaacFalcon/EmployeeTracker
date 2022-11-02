@@ -21,7 +21,17 @@ connection.connect(function(err){
     mainPrompt();
 });
 
-console.log('Hello welcome to the employee team manager!');
+console.log(`
+--------------------------------------------------
+|  -------------------------------------------   |
+|  |                                          |  |
+|  |        **WELCOME  TO**                   |  |                
+|  |                                          |  |
+|  |             **EMPLOYEE**                 |  |               
+|  |                                          |  |
+|  |                    **MANAGER!**          |  |                  
+|  --------------------------------------------  |
+--------------------------------------------------`);
 
 function mainPrompt() {
     inquirer.prompt({
